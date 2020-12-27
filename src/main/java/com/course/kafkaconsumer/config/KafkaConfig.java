@@ -1,6 +1,7 @@
 package com.course.kafkaconsumer.config;
 
 import com.course.kafkaconsumer.entity.CarLocation;
+import com.course.kafkaconsumer.error.handler.GlobalErrorHandler22;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -22,7 +23,6 @@ public class KafkaConfig {
     @Autowired
     private KafkaProperties kafkaProperties22;
 
-
              // for overriding Consumer configuration we need to write KafkaTemplate, this KafkaTemplate we need only
     @Bean                                                                      // for overriding Producer configuration
     public ConsumerFactory<Object,Object> consumerFactory22() {
@@ -31,14 +31,13 @@ public class KafkaConfig {
 
          return new DefaultKafkaConsumerFactory<Object,Object>(properties22);
     }
-
+// video 48
     @Bean(name ="farLocationContainerFactory22")
     public ConcurrentKafkaListenerContainerFactory<Object, Object> farLocationContainerFactory22(
                                                  ConcurrentKafkaListenerContainerFactoryConfigurer configurer22) {
 
         var factory22 = new ConcurrentKafkaListenerContainerFactory<Object,Object>();
         configurer22.configure(factory22, consumerFactory22());
-
 
         factory22.setRecordFilterStrategy(new RecordFilterStrategy<Object, Object>() {
 
@@ -54,12 +53,22 @@ public class KafkaConfig {
                }
             }
         });
+        return factory22;
+    }
+// vidoe 49
+    @Bean(value = "kafkaListenerContainerFactory")
+    public ConcurrentKafkaListenerContainerFactory<Object, Object> farLocationContainerFactory33(
+                                            ConcurrentKafkaListenerContainerFactoryConfigurer configurer22) {
 
+        var factory22 = new ConcurrentKafkaListenerContainerFactory<Object,Object>();
+        configurer22.configure(factory22, consumerFactory22());
+
+        factory22.setErrorHandler(new GlobalErrorHandler22());
         return factory22;
     }
 
-
-
-
-
 }
+
+
+
+
