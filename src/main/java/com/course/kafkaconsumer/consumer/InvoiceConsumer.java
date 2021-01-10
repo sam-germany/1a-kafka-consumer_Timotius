@@ -14,7 +14,7 @@ public class InvoiceConsumer {
 
     private ObjectMapper objectMapper22 = new ObjectMapper();
 
-    @KafkaListener(topics = "t_invoice", containerFactory = "invoiceDeadLetterTopicFactory")
+    @KafkaListener(topics = "t_invoice", containerFactory = "invoiceDeadLetterContainerFactory")
     public void consume22(String message) throws IOException {
         var invoice = objectMapper22.readValue(message, Invoice.class);
 

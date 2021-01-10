@@ -119,8 +119,8 @@ Step3) at the end we need to create a "new KafkaTemplate<>"  object  with @Bean,
     }
 
 //video 53
-     @Bean(value = "invoiceDeadLetterTopicFactory")
-     public ConcurrentKafkaListenerContainerFactory<Object, Object> invoiceDeadLetterTopicFactory(
+     @Bean(value = "invoiceDeadLetterContainerFactory")
+     public ConcurrentKafkaListenerContainerFactory<Object, Object> invoiceDeadLetterContainerFactory(
                    ConcurrentKafkaListenerContainerFactoryConfigurer configurer, KafkaOperations <Object, Object> KafkaOperations) {
 
         var factory = new ConcurrentKafkaListenerContainerFactory<Object, Object>();
